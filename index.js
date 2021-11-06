@@ -29,7 +29,7 @@ function draw() {
 }
 
 function move() {
-    units.forEach(async (unit, index, fullUnits) => {
+    units.forEach((unit, index, fullUnits) => {
         const spots = [];
 
         directionChecks.forEach(direction => {
@@ -42,7 +42,7 @@ function move() {
         });
 
         const random = Math.floor(Math.random() * spots.length);
-        const chosenSpot = await spots[random];
+        const chosenSpot = spots[random];
 
         fullUnits[index] = {x: chosenSpot.x, y: chosenSpot.y, color: unit.color}
     })
