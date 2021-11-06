@@ -10,8 +10,8 @@ let color = null;
 
 const unitSize = 20;
 
-function spawn(e) {
-    const color = checkColor();
+async function spawn(e) {
+    const color = checkSelectedColor();
     if (color) {
         const rect = canvas.getBoundingClientRect();
         const x = Math.ceil((e.clientX - rect.left) / unitSize) * unitSize -unitSize;
@@ -19,20 +19,33 @@ function spawn(e) {
         
         console.log("x: " + x + " y: " + y + " color: " + color);
 
-        units.push({x, y, color});
+        const existing = await checkExisting(x, y);
 
-        console.log(units);
+        if (!existing) {
+            units.push({x, y, color});
 
-        ctx.fillStyle = String(color);
-        ctx.fillRect(x, y, unitSize, unitSize);
+            ctx.fillStyle = String(color);
+            ctx.fillRect(x, y, unitSize, unitSize);
+        }
+
+
     }
 }
 
-function checkColor() {
+function checkSelectedColor() {
     for (let i = 0; i < radios.length; i++) {
         if (radios[i].checked)
             return radios[i].value;
     }
+}
+
+function checkExisting(x, y) {
+    let existing = null;
+    units.forEach(unit => {
+        if (unit.x === x && unit.y === y)
+            existing = unit;
+    })
+    return existing;
 }
 
 canvas.addEventListener("mousedown", function(e) {
