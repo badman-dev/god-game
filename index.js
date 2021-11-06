@@ -30,7 +30,16 @@ function draw() {
 
 function move() {
     units.forEach((unit, index, fullUnits) => {
-        const spots = checkSpots(unit);
+        const spots = [];
+
+        directionChecks.forEach(direction => {
+            if (unit.x + direction.x >= 0 && unit.y + direction.y >= 0 && unit.x + direction.x < canvas.width && unit.y + direction.y < canvas.height) {
+                const spotTaken = checkExisting(unit.x + direction.x, unit.y + direction.y);
+                if (!spotTaken) {
+                    spots.push({x: unit.x + direction.x, y: unit.y + direction.y});
+                }
+            }
+        });
 
         const random = Math.floor(Math.random() * spots.length);
         const chosenSpot = spots[random];
@@ -53,21 +62,6 @@ async function spawn(e) {
         if (!existing)
             units.push({x, y, color});
     }
-}
-
-function checkSpots(unit) {
-    const spots = [];
-
-    directionChecks.forEach(direction => {
-        if (unit.x + direction.x >= 0 && unit.y + direction.y >= 0 && unit.x + direction.x < canvas.width && unit.y + direction.y < canvas.height) {
-            const spotTaken = checkExisting(unit.x + direction.x, unit.y + direction.y);
-            if (!spotTaken) {
-                spots.push({x: unit.x + direction.x, y: unit.y + direction.y});
-            }
-        }
-    });
-
-    return spots;
 }
 
 function checkSelectedColor() {
