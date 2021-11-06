@@ -55,7 +55,7 @@ async function spawn(e) {
         const x = Math.ceil((e.clientX - rect.left) / unitSize) * unitSize -unitSize;
         const y = Math.ceil((e.clientY - rect.top) / unitSize) * unitSize -unitSize;
         
-        console.log("x: " + x + " y: " + y + " color: " + color);
+        // console.log("x: " + x + " y: " + y + " color: " + color);
 
         const existing = await checkExisting(x, y);
 
