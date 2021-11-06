@@ -8,7 +8,20 @@ const units = [];
 
 let color = null;
 
-const unitSize = 20;
+const unitSize = 10;
+
+setInterval(function(){ 
+    draw();
+}, 50);
+
+function draw() {
+    units.forEach(async unit => {
+        await ctx.clearRect(0, 0, canvas.width, canvas.height);
+
+        ctx.fillStyle = String(unit.color);
+        ctx.fillRect(unit.x, unit.y, unitSize, unitSize);
+    })
+}
 
 async function spawn(e) {
     const color = checkSelectedColor();
@@ -21,14 +34,8 @@ async function spawn(e) {
 
         const existing = await checkExisting(x, y);
 
-        if (!existing) {
+        if (!existing)
             units.push({x, y, color});
-
-            ctx.fillStyle = String(color);
-            ctx.fillRect(x, y, unitSize, unitSize);
-        }
-
-
     }
 }
 
