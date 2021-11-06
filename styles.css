@@ -1,0 +1,17 @@
+body {
+    font-family: Verdana;
+    background-color: lightblue;
+}
+
+.big {
+    margin: auto;
+    background-color: white;
+    text-align: center;
+    padding-top: 10px;
+    height: 1000px;
+    width: 900px;
+}
+
+canvas {
+    border: 2px solid black;
+}
