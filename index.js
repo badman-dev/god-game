@@ -12,9 +12,12 @@ const unitSize = 10;
 const directionChecks = [{x: 10, y: 0}, {x: -10, y: 0}, {x: 0, y: 10}, {x:0, y: -10}];
 
 setInterval(function(){ 
-    move();
     draw();
 }, 50);
+
+setInterval(function(){ 
+    move();
+}, 200);
 
 function draw() {
     units.forEach(async unit => {
