@@ -9,8 +9,10 @@ const units = [];
 let color = null;
 
 const unitSize = 10;
+const directionChecks = [{x: 10, y: 0}, {x: -10, y: 0}, {x: 0, y: 10}, {x:0, y: -10}];
 
 setInterval(function(){ 
+    move();
     draw();
 }, 50);
 
@@ -20,6 +22,24 @@ function draw() {
 
         ctx.fillStyle = String(unit.color);
         ctx.fillRect(unit.x, unit.y, unitSize, unitSize);
+    })
+}
+
+function move() {
+    units.forEach(async (unit, index, fullUnits) => {
+        const spots = [];
+
+        directionChecks.forEach(direction => {
+            const spotTaken = checkExisting(unit.x + direction.x, unit.y + direction.y);
+            if (!spotTaken) {
+                spots.push({x: unit.x + direction.x, y: unit.y + direction.y});
+            }
+        });
+
+        const random = Math.floor(Math.random() * spots.length);
+        const chosenSpot = await spots[random];
+
+        fullUnits[index] = {x: chosenSpot.x, y: chosenSpot.y, color: unit.color}
     })
 }
 
