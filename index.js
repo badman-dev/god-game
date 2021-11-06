@@ -57,7 +57,6 @@ function actions() {
         });
         unitSpots.forEach(unitSpot => {
             if (actionRandom <= 3 && chosenSpot.x === unitSpot.x && chosenSpot.y === unitSpot.y && moveSpots.length) {
-                console.log("start");
                 const babyRandom = Math.floor(Math.random() * moveSpots.length);
                 const babySpot = moveSpots[babyRandom];
 
@@ -89,36 +88,25 @@ function getMiddleColor(color1, color2) {
 
     for(let i = 0; i < 3; i++) {
         rgbFinal.push(Math.round((rgb1[i] + rgb2[i])/2));
-        // console.log(rgb1[i]);
-        // console.log(rgb2[i]);
-        // console.log((rgb1[i] + rgb2[i])/2);
     }
 
     const middleColor = rgbToHex(rgbFinal);
-
-    console.log(middleColor);
-    console.log("end");
 
     return middleColor;
 }
 
 function hexToRgb(color) {
     const aRgbHex = color.substring(1).match(/.{1,2}/g);
-    console.log(color);
-    console.log(aRgbHex);
     const aRgb = [
         parseInt(aRgbHex[0], 16),
         parseInt(aRgbHex[1], 16),
         parseInt(aRgbHex[2], 16)
     ];
 
-    console.log(aRgb);
-
     return aRgb;
 }
 
 function rgbToHex(color) {
-    console.log(color);
     let hexString = "#";
     color.forEach(component => {
         const hex = component.toString(16);
