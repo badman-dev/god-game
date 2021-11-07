@@ -8,8 +8,10 @@ const unitSize = 10;
 const directionChecks = [{x: unitSize, y: 0}, {x: -unitSize, y: 0}, {x: 0, y: unitSize}, {x:0, y: -unitSize}];
 
 setInterval(function(){ 
-    actions();
-    draw();
+    if (units.length < (canvas.width * canvas.height) / (unitSize * unitSize)) {
+        actions();
+        draw();
+    }
 }, 100);
 
 function draw() {
