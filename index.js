@@ -10,12 +10,9 @@ const unitSize = 10;
 const directionChecks = [{x: unitSize, y: 0}, {x: -unitSize, y: 0}, {x: 0, y: unitSize}, {x:0, y: -unitSize}];
 
 setInterval(function(){ 
-    draw();
-}, 50);
-
-setInterval(function(){ 
     actions();
-}, 50);
+    draw();
+}, 100);
 
 function draw() {
     units.forEach(async unit => {
@@ -46,34 +43,33 @@ function actions() {
             }
         });
 
-        const random = Math.floor(Math.random() * totalSpots.length);
-        const chosenSpot = totalSpots[random];
+        if (moveSpots.length) {
+            const random = Math.floor(Math.random() * totalSpots.length);
+            const chosenSpot = totalSpots[random];
 
-        actionRandom = Math.floor(Math.random() * 10);
+            actionRandom = Math.floor(Math.random() * 10);
 
-        moveSpots.forEach(moveSpot => {
-            if (chosenSpot.x === moveSpot.x && chosenSpot.y === moveSpot.y)
-                fullUnits[index] = {x: chosenSpot.x, y: chosenSpot.y, color: unit.color};
-        });
-        unitSpots.forEach(unitSpot => {
-            if (actionRandom <= 3 && chosenSpot.x === unitSpot.x && chosenSpot.y === unitSpot.y && moveSpots.length) {
-                const babyRandom = Math.floor(Math.random() * moveSpots.length);
-                const babySpot = moveSpots[babyRandom];
+            moveSpots.forEach(moveSpot => {
+                if (chosenSpot.x === moveSpot.x && chosenSpot.y === moveSpot.y)
+                    fullUnits[index] = {x: chosenSpot.x, y: chosenSpot.y, color: unit.color};
+            });
+            unitSpots.forEach(unitSpot => {
+                if (actionRandom === 1 && chosenSpot.x === unitSpot.x && chosenSpot.y === unitSpot.y && moveSpots.length) {
+                    const babyRandom = Math.floor(Math.random() * moveSpots.length);
+                    const babySpot = moveSpots[babyRandom];
 
-                const otherUnit = checkExisting(chosenSpot.x, chosenSpot.y);
+                    const otherUnit = checkExisting(chosenSpot.x, chosenSpot.y);
 
-                const color = getMiddleColor(unit.color, otherUnit.color);
+                    const color = getMiddleColor(unit.color, otherUnit.color);
 
-                spawn(babySpot.x, babySpot.y, color);
-            }
-        });
+                    spawn(babySpot.x, babySpot.y, color);
+                }
+            });
+        }
     })
 }
 
 async function spawn(x, y, color) {
-        
-        // console.log("x: " + x + " y: " + y + " color: " + color);
-
     const existing = await checkExisting(x, y);
 
     if (!existing)
@@ -140,5 +136,7 @@ canvas.addEventListener("mousedown", function(e) {
         const x = Math.ceil((e.clientX - rect.left) / unitSize) * unitSize - unitSize;
         const y = Math.ceil((e.clientY - rect.top) / unitSize) * unitSize - unitSize;
         spawn(x, y, color);
+
+        draw();
     }
 })
