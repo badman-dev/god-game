@@ -3,12 +3,16 @@ body {
     background-color: lightblue;
 }
 
+p {
+    font-size: small;
+}
+
 .big {
     margin: auto;
     background-color: white;
     text-align: center;
     padding-top: 10px;
-    height: 1000px;
+    height: 930px;
     width: 900px;
 }
 
