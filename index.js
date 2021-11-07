@@ -1,7 +1,5 @@
 const canvas = document.getElementById("game");
 const ctx = canvas.getContext("2d");
-const radioRed = document.getElementById("red");
-const radioBlue = document.getElementById("blue");
 const radios = document.getElementsByName("colorSpawn")
 
 const units = [];
