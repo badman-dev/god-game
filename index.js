@@ -7,10 +7,13 @@ const units = [];
 const unitSize = 10;
 const directionChecks = [{x: unitSize, y: 0}, {x: -unitSize, y: 0}, {x: 0, y: unitSize}, {x:0, y: -unitSize}];
 
+let timer = 0;
+
 setInterval(function(){ 
-    if (units.length < 5160) {
+    if (units.length < 4900 || timer < 15) {
         actions();
         draw();
+        timer++;
     }
 }, 100);
 
@@ -50,8 +53,10 @@ function actions() {
             actionRandom = Math.floor(Math.random() * 10);
 
             moveSpots.forEach(moveSpot => {
-                if (chosenSpot.x === moveSpot.x && chosenSpot.y === moveSpot.y)
+                if (chosenSpot.x === moveSpot.x && chosenSpot.y === moveSpot.y) {
                     fullUnits[index] = {x: chosenSpot.x, y: chosenSpot.y, color: unit.color};
+                    timer = 0;
+                }
             });
             unitSpots.forEach(unitSpot => {
                 if (actionRandom === 1 && chosenSpot.x === unitSpot.x && chosenSpot.y === unitSpot.y && moveSpots.length) {
@@ -63,6 +68,8 @@ function actions() {
                     const color = getMiddleColor(unit.color, otherUnit.color);
 
                     spawn(babySpot.x, babySpot.y, color);
+
+                    timer = 0;
                 }
             });
         }
@@ -72,8 +79,10 @@ function actions() {
 async function spawn(x, y, color) {
     const existing = await checkExisting(x, y);
 
-    if (!existing)
-        units.push({x, y, color})
+    if (!existing) {
+        units.push({x, y, color});
+        // draw();
+    }
 }
 
 function getMiddleColor(color1, color2) {
@@ -136,7 +145,5 @@ canvas.addEventListener("mousedown", function(e) {
         const x = Math.ceil((e.clientX - rect.left) / unitSize) * unitSize - unitSize;
         const y = Math.ceil((e.clientY - rect.top) / unitSize) * unitSize - unitSize;
         spawn(x, y, color);
-
-        draw();
     }
 })
