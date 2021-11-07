@@ -1,6 +1,8 @@
 body {
     font-family: Verdana;
-    background-color: lightblue;
+    background-image: url("pixelsloving.png");
+    background-repeat: no-repeat;
+    background-size: cover;
 }
 
 p {
