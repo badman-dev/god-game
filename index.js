@@ -130,12 +130,7 @@ function checkSelectedColor() {
 }
 
 function checkExisting(x, y) {
-    let existing = null;
-    units.forEach(unit => {
-        if (unit.x === x && unit.y === y)
-            existing = unit;
-    })
-    return existing;
+    return units.find(u => u.x === x && u.y === y)
 }
 
 canvas.addEventListener("mousedown", function(e) {
