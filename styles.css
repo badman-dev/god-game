@@ -3,10 +3,18 @@ body {
     background-image: url("pixelsloving.png");
     background-repeat: no-repeat;
     background-size: cover;
+    overflow: hidden;
 }
 
 p {
-    font-size: small;
+    font-size: 13pt;
+    padding-right: 50px;
+    padding-left: 50px;
+    margin-bottom: 5px;
+}
+
+h1 {
+    margin-bottom: -15px;
 }
 
 .big {
@@ -16,6 +24,8 @@ p {
     padding-top: 10px;
     height: 930px;
     width: 900px;
+    margin-bottom: -10px;
+    margin-top: -10px;
 }
 
 canvas {
