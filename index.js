@@ -1,6 +1,7 @@
 const canvas = document.getElementById("game");
 const ctx = canvas.getContext("2d");
-const radios = document.getElementsByName("colorSpawn")
+const radios = document.getElementsByName("colorSpawn");
+const customColor = document.getElementById("customColor");
 
 const units = [];
 
@@ -124,8 +125,12 @@ function rgbToHex(color) {
 
 function checkSelectedColor() {
     for (let i = 0; i < radios.length; i++) {
-        if (radios[i].checked)
+        if (radios[i].checked) {
+            if (radios[i].value === "custom")
+                return customColor.value;
+                
             return radios[i].value;
+        }
     }
 }
 
@@ -140,5 +145,14 @@ canvas.addEventListener("mousedown", function(e) {
         const x = Math.ceil((e.clientX - rect.left) / unitSize) * unitSize - unitSize;
         const y = Math.ceil((e.clientY - rect.top) / unitSize) * unitSize - unitSize;
         spawn(x, y, color);
+    }
+})
+
+customColor.addEventListener("click", function(e) {
+    for (let i = 0; i < radios.length; i++) {
+        if (radios[i].value === "custom")
+            radios[i].checked = true;
+        else  
+            radios[i].checked = false;
     }
 })

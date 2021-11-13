@@ -12,13 +12,16 @@
             <p>Select a color and click on the canvas to create little pixel friends. They'll meet each other and make even more friends.</p>
             <form>
                 <input type="radio" id="red" name="colorSpawn" value="#FF0000">
-                <label style="color: #FF0000" for="red">Red</label>
+                <label style="color: #FF0000" for="red">Red</label> |
                 <input type="radio" id="blue" name="colorSpawn" value="#00FFFF">
-                <label style="color: #00FFFF" for="blue">Blue</label>
+                <label style="color: #00FFFF" for="blue">Blue</label> |
                 <input type="radio" id="green" name="colorSpawn" value="#32a852">
-                <label style="color: #32a852" for="green">Green</label>
+                <label style="color: #32a852" for="green">Green</label> |
                 <input type="radio" id="yellow" name="colorSpawn" value="#eddb18">
-                <label style="color: #eddb18" for="yellow">Yellow</label>
+                <label style="color: #eddb18" for="yellow">Yellow</label> |
+                <input type="radio" id="custom" name="colorSpawn" value="custom">
+                <label for="custom">Custom</label>
+                <input type="color" id="customColor" name="customColor" value="#ff0000">
             </form>
             <br/>
             <canvas id="game" width="700" height="700"></canvas>
