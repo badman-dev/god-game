@@ -154,6 +154,8 @@ function checkExisting(x, y) {
 }
 
 canvas.addEventListener("mousedown", function(e) {
+    timer = 0;
+    
     if (!mouseDown) {
         const color = checkSelectedColor();
         if (color) {
