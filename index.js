@@ -177,7 +177,7 @@ canvas.addEventListener("mousedown", function(e) {
     }
 })
 
-canvas.addEventListener("mouseup", function(e) {
+window.addEventListener("mouseup", function(e) {
     if (mouseDown)
         mouseDown = false;
 })
