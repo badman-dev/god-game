@@ -89,6 +89,16 @@ async function spawn(x, y, color) {
     }
 }
 
+function destroy(x, y) {
+
+    const test = (element) => element.x === x && element.y === y;
+
+    const index = units.findIndex(test);
+
+    if (index >= 0)
+        units.splice(index, 1);
+}
+
 function getMiddleColor(color1, color2) {
     rgb1 = hexToRgb(color1);
     rgb2 = hexToRgb(color2);
@@ -145,10 +155,18 @@ canvas.addEventListener("mousedown", function(e) {
     if (!mouseDown) {
         const color = checkSelectedColor();
         if (color) {
+
             const rect = canvas.getBoundingClientRect();
             const x = Math.ceil((e.clientX - rect.left) / unitSize) * unitSize - unitSize;
             const y = Math.ceil((e.clientY - rect.top) / unitSize) * unitSize - unitSize;
-            spawn(x, y, color);
+
+            if (color === "destroy") {
+                destroy(x, y);
+            }
+            else {
+                spawn(x, y, color);
+            }
+
         }
 
         mouseDown = true;
@@ -162,13 +180,15 @@ canvas.addEventListener("mouseup", function(e) {
 
 canvas.addEventListener("mousemove", function(e) {
     const color = checkSelectedColor();
-    if (mouseDown && color === "black") {
-        if (color) {
+    if (mouseDown && (color === "black" || color === "destroy")) {
             const rect = canvas.getBoundingClientRect();
             const x = Math.ceil((e.clientX - rect.left) / unitSize) * unitSize - unitSize;
             const y = Math.ceil((e.clientY - rect.top) / unitSize) * unitSize - unitSize;
-            spawn(x, y, color);
-        }
+
+            if (color === "black")
+                spawn(x, y, color);
+            else if (color === "destroy")
+                destroy(x, y);
     }
 })
 
