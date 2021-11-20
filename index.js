@@ -64,16 +64,18 @@ function actions() {
                 });
                 unitSpots.forEach(unitSpot => {
                     if (actionRandom === 1 && chosenSpot.x === unitSpot.x && chosenSpot.y === unitSpot.y && moveSpots.length) {
-                        const babyRandom = Math.floor(Math.random() * moveSpots.length);
-                        const babySpot = moveSpots[babyRandom];
-
                         const otherUnit = checkExisting(chosenSpot.x, chosenSpot.y);
 
-                        const color = getMiddleColor(unit.color, otherUnit.color);
+                        if (otherUnit.color != "black") {
+                            const babyRandom = Math.floor(Math.random() * moveSpots.length);
+                            const babySpot = moveSpots[babyRandom];
 
-                        spawn(babySpot.x, babySpot.y, color);
+                            const color = getMiddleColor(unit.color, otherUnit.color);
 
-                        timer = 0;
+                            spawn(babySpot.x, babySpot.y, color);
+
+                            timer = 0;
+                        }
                     }
                 });
             }
