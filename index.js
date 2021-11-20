@@ -143,8 +143,6 @@ function checkExisting(x, y) {
 
 canvas.addEventListener("mousedown", function(e) {
     if (!mouseDown) {
-        mouseDown = true;
-
         const color = checkSelectedColor();
         if (color) {
             const rect = canvas.getBoundingClientRect();
@@ -152,6 +150,8 @@ canvas.addEventListener("mousedown", function(e) {
             const y = Math.ceil((e.clientY - rect.top) / unitSize) * unitSize - unitSize;
             spawn(x, y, color);
         }
+
+        mouseDown = true;
     }
 })
 
@@ -161,8 +161,8 @@ canvas.addEventListener("mouseup", function(e) {
 })
 
 canvas.addEventListener("mousemove", function(e) {
-    if (mouseDown) {
-        const color = checkSelectedColor();
+    const color = checkSelectedColor();
+    if (mouseDown && color === "black") {
         if (color) {
             const rect = canvas.getBoundingClientRect();
             const x = Math.ceil((e.clientX - rect.left) / unitSize) * unitSize - unitSize;
