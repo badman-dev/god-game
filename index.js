@@ -10,6 +10,8 @@ const directionChecks = [{x: unitSize, y: 0}, {x: -unitSize, y: 0}, {x: 0, y: un
 
 let timer = 0;
 
+let mouseDown = false;
+
 setInterval(function(){
     if (units.length < 4900 || timer < 15) {
         actions();
@@ -140,12 +142,33 @@ function checkExisting(x, y) {
 }
 
 canvas.addEventListener("mousedown", function(e) {
-    const color = checkSelectedColor();
-    if (color) {
-        const rect = canvas.getBoundingClientRect();
-        const x = Math.ceil((e.clientX - rect.left) / unitSize) * unitSize - unitSize;
-        const y = Math.ceil((e.clientY - rect.top) / unitSize) * unitSize - unitSize;
-        spawn(x, y, color);
+    if (!mouseDown) {
+        mouseDown = true;
+
+        const color = checkSelectedColor();
+        if (color) {
+            const rect = canvas.getBoundingClientRect();
+            const x = Math.ceil((e.clientX - rect.left) / unitSize) * unitSize - unitSize;
+            const y = Math.ceil((e.clientY - rect.top) / unitSize) * unitSize - unitSize;
+            spawn(x, y, color);
+        }
+    }
+})
+
+canvas.addEventListener("mouseup", function(e) {
+    if (mouseDown)
+        mouseDown = false;
+})
+
+canvas.addEventListener("mousemove", function(e) {
+    if (mouseDown) {
+        const color = checkSelectedColor();
+        if (color) {
+            const rect = canvas.getBoundingClientRect();
+            const x = Math.ceil((e.clientX - rect.left) / unitSize) * unitSize - unitSize;
+            const y = Math.ceil((e.clientY - rect.top) / unitSize) * unitSize - unitSize;
+            spawn(x, y, color);
+        }
     }
 })
 
