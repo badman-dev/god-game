@@ -3,8 +3,9 @@ const ctx = canvas.getContext("2d");
 const radios = document.getElementsByName("colorSpawn");
 const customColor = document.getElementById("customColor");
 const deleteAllButton = document.getElementById("deleteAll");
+const deleteWallsButton = document.getElementById("deleteWalls");
 
-const units = [];
+let units = [];
 
 const unitSize = 10;
 const directionChecks = [{x: unitSize, y: 0}, {x: -unitSize, y: 0}, {x: 0, y: unitSize}, {x:0, y: -unitSize}];
@@ -14,7 +15,7 @@ let timer = 0;
 let mouseDown = false;
 
 setInterval(function(){
-    if (units.length < 4900 || timer < 15) {
+    if (timer < 15) {
         actions();
         draw();
         timer++;
@@ -94,9 +95,9 @@ async function spawn(x, y, color) {
 
 function destroy(x, y) {
 
-    const test = (element) => element.x === x && element.y === y;
+    const coords = (element) => element.x === x && element.y === y;
 
-    const index = units.findIndex(test);
+    const index = units.findIndex(coords);
 
     if (index >= 0)
         units.splice(index, 1);
@@ -211,4 +212,24 @@ deleteAllButton.addEventListener("click", function(e) {
 
     units.length = 0;
     ctx.clearRect(0, 0, canvas.width, canvas.height);
+}) 
+
+deleteWallsButton.addEventListener("click", function(e) {
+    e.preventDefault();
+
+    const tempUnits = [];
+
+    units.forEach((unit) => {
+        if (unit.color !== "black") {
+            tempUnits.push(unit);
+        }
+    });
+
+    units = tempUnits;
+
+    if (tempUnits.length === 0) {
+         ctx.clearRect(0, 0, canvas.width, canvas.height);
+    }
+
+    draw();
 }) 
