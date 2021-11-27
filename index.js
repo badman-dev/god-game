@@ -2,6 +2,7 @@ const canvas = document.getElementById("game");
 const ctx = canvas.getContext("2d");
 const radios = document.getElementsByName("colorSpawn");
 const customColor = document.getElementById("customColor");
+const deleteAllButton = document.getElementById("deleteAll");
 
 const units = [];
 
@@ -204,3 +205,10 @@ customColor.addEventListener("click", function(e) {
             radios[i].checked = false;
     }
 })
+
+deleteAllButton.addEventListener("click", function(e) {
+    e.preventDefault();
+
+    units.length = 0;
+    ctx.clearRect(0, 0, canvas.width, canvas.height);
+}) 
