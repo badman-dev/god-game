@@ -1,5 +1,6 @@
 const canvas = document.getElementById("game");
 const ctx = canvas.getContext("2d");
+const canvasSize = {width: canvas.width, height: canvas.height};
 const radios = document.getElementsByName("colorSpawn");
 const customColor = document.getElementById("customColor");
 const deleteAllButton = document.getElementById("deleteAll");
@@ -24,7 +25,7 @@ setInterval(function(){
 
 function draw() {
     units.forEach(async unit => {
-        await ctx.clearRect(0, 0, canvas.width, canvas.height);
+        await ctx.clearRect(0, 0, canvasSize.width, canvasSize.height);
 
         ctx.fillStyle = String(unit.color);
         ctx.fillRect(unit.x, unit.y, unitSize, unitSize);
@@ -40,7 +41,7 @@ function actions() {
             const unitSpots = [];
 
             directionChecks.forEach(direction => {
-                if (unit.x + direction.x >= 0 && unit.y + direction.y >= 0 && unit.x + direction.x < canvas.width && unit.y + direction.y < canvas.height) {
+                if (unit.x + direction.x >= 0 && unit.y + direction.y >= 0 && unit.x + direction.x < canvasSize.width && unit.y + direction.y < canvasSize.height) {
                     totalSpots.push({x: unit.x + direction.x, y: unit.y + direction.y});
 
                     const spotTaken = checkExisting(unit.x + direction.x, unit.y + direction.y);
@@ -211,7 +212,7 @@ deleteAllButton.addEventListener("click", function(e) {
     e.preventDefault();
 
     units.length = 0;
-    ctx.clearRect(0, 0, canvas.width, canvas.height);
+    ctx.clearRect(0, 0, canvasSize.width, canvasSize.height);
 }) 
 
 deleteWallsButton.addEventListener("click", function(e) {
@@ -228,7 +229,7 @@ deleteWallsButton.addEventListener("click", function(e) {
     units = tempUnits;
 
     if (tempUnits.length === 0) {
-         ctx.clearRect(0, 0, canvas.width, canvas.height);
+         ctx.clearRect(0, 0, canvasSize.width, canvasSize.height);
     }
 
     draw();
